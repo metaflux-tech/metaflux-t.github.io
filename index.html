@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Metaflux Technologies — Fluxing Ideas into Reality</title>
+  <title>Metaflux Technologies â€” Fluxing Ideas into Reality</title>
+  <meta name="description" content="Experiential marketing, LED walls, projection mapping, interactive activations across the UAE." />
   <style>
     :root{
       --bg:#0b0b10;
@@ -11,150 +12,112 @@
       --muted:#a8b0c2;
       --brand1:#7d00ff;     /* purple */
       --brand2:#00ffb9;     /* green */
-      --brand3:#3aa6ff;     /* blue (optional accents) */
+      --brand3:#3aa6ff;     /* blue accents */
       --glass:rgba(255,255,255,.06);
     }
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,Arial,Helvetica,sans-serif;scroll-behavior:smooth}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,Arial,Helvetica,sans-serif;scroll-behavior:smooth}
     a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
 
-    /* ===== Global helpers ===== */
     .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
     .center{text-align:center}
     .muted{color:var(--muted)}
-    .chip{display:inline-block;padding:8px 12px;border-radius:999px;background:linear-gradient(90deg,var(--brand1),var(--brand2));color:#0f0f14;font-weight:700}
 
-    /* ===== Hero / Entry ===== */
-    header.hero{
-      position:relative; min-height:100vh; display:flex; align-items:center; justify-content:center;
-      overflow:hidden; text-align:center;
-      background:
-        radial-gradient(1000px 600px at 20% 10%, rgba(125,0,255,.25), transparent 60%),
-        radial-gradient(1000px 600px at 80% 90%, rgba(0,255,185,.18), transparent 60%),
-        linear-gradient(180deg, #0b0b10, #0b0b10);
-    }
-    /* animated glow orbs */
-    .orb{position:absolute;filter:blur(40px);opacity:.55;mix-blend-mode:screen}
-    .orb.purple{width:420px;height:420px;background:#7d00ff;top:10%;left:8%;animation:float 9s ease-in-out infinite}
-    .orb.green{width:500px;height:500px;background:#00ffb9;bottom:-6%;right:10%;animation:float 11s ease-in-out infinite reverse}
-    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
+    /* ===== HERO ===== */
+    header.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center}
+    /* parallax layers */
+    .layer{position:absolute;inset:-10%;pointer-events:none;filter:blur(40px);opacity:.45;mix-blend-mode:screen}
+    .layer.p1{background:radial-gradient(480px 320px at 15% 15%, rgba(125,0,255,.55), transparent 60%)}
+    .layer.p2{background:radial-gradient(520px 360px at 85% 85%, rgba(0,255,185,.45), transparent 60%)}
+    .layer.p3{background:radial-gradient(480px 320px at 60% 20%, rgba(58,166,255,.35), transparent 60%)}
 
-    .hero .card{
-      position:relative; z-index:2; padding:34px 26px; border-radius:20px;
-      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
-      box-shadow:0 30px 80px rgba(0,0,0,.35); backdrop-filter: blur(10px);
-      max-width:860px;
-    }
-    .brandmark{
-      width:96px; height:96px; border-radius:18px; margin:0 auto 10px auto;
-      background:linear-gradient(135deg,var(--brand1),var(--brand2));
-      display:flex;align-items:center;justify-content:center;font-weight:900;color:#0f0f14;letter-spacing:1px;
-    }
+    .hero .card{position:relative;z-index:2;padding:34px 26px;border-radius:20px;background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));box-shadow:0 30px 80px rgba(0,0,0,.35);backdrop-filter: blur(10px);max-width:860px}
+    .brandmark{width:110px;height:110px;border-radius:18px;margin:0 auto 10px auto;background:linear-gradient(135deg,var(--brand1),var(--brand2));display:flex;align-items:center;justify-content:center;font-weight:900;color:#0f0f14;letter-spacing:1px}
     .hero h1{margin:8px 0 6px;font-size:44px;line-height:1.05}
-    .hero .tagline{font-size:18px;color:var(--muted);margin:0 0 14px 0}
-
-    .scroll-hint{
-      margin-top:18px;color:var(--muted);font-size:14px;display:inline-flex;gap:10px;align-items:center
-    }
+    .hero .tagline{font-size:18px;color:var(--muted);margin:0 0 6px 0}
+    .scroll-hint{margin-top:10px;color:var(--muted);font-size:14px;display:inline-flex;gap:10px;align-items:center}
     .arrow{width:10px;height:18px;border-left:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(-45deg);margin-top:4px;animation:bob 1.6s ease-in-out infinite}
     @keyframes bob{0%,100%{transform:translateY(0) rotate(-45deg)}50%{transform:translateY(6px) rotate(-45deg)}}
 
-    /* Floating CTA */
-    .fab{
-      position:fixed; right:16px; bottom:16px; z-index:30;
-      background:linear-gradient(90deg,var(--brand1),var(--brand2));
-      color:#0f0f14;padding:14px 18px;border-radius:999px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.35)
-    }
+    /* Floating CTA (magnetic on desktop) */
+    .fab{position:fixed;right:16px;bottom:16px;z-index:30;background:linear-gradient(90deg,var(--brand1),var(--brand2));color:#0f0f14;padding:14px 18px;border-radius:999px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.35);transition:transform .12s ease}
 
-    /* ===== Section: What We Do ===== */
+    /* ===== WHAT WE DO ===== */
     section.do{padding:70px 0}
     .pillrow{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:18px 0 6px}
     .pill{padding:10px 14px;border-radius:999px;background:var(--glass);border:1px solid rgba(255,255,255,.08)}
     .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:26px}
-    .tile{
-      background:var(--glass);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:18px 16px;
-      min-height:120px
-    }
+    .tile{background:var(--glass);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:18px 16px;min-height:120px}
     .tile h3{margin:0 0 6px}
     .tile p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.6}
 
-    /* ===== Section: Projects (Horizontal) ===== */
+    /* ===== PROJECTS (Horizontal) ===== */
     section.projects{padding:20px 0 14px}
     .bar{display:flex;justify-content:space-between;align-items:center;margin:0 0 10px 0}
-    .hscroll{
-      display:flex;gap:16px;overflow-x:auto;padding:10px 6px 22px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch
-    }
-    .card{
-      position:relative;flex:0 0 auto;width:320px;height:210px;border-radius:16px;overflow:hidden;
-      background:#111;border:1px solid rgba(255,255,255,.08);scroll-snap-align:start;
-      box-shadow:0 12px 34px rgba(0,0,0,.35)
-    }
+    .chip{display:inline-block;padding:8px 12px;border-radius:999px;background:linear-gradient(90deg,var(--brand1),var(--brand2));color:#0f0f14;font-weight:800}
+    .hscroll{display:flex;gap:16px;overflow-x:auto;padding:10px 6px 22px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+    .card{position:relative;flex:0 0 auto;width:320px;height:210px;border-radius:16px;overflow:hidden;background:#111;border:1px solid rgba(255,255,255,.08);scroll-snap-align:start;box-shadow:0 12px 34px rgba(0,0,0,.35)}
     .card img{width:100%;height:100%;object-fit:cover;display:block;filter:contrast(1.03) saturate(1.05)}
-    .tag{
-      position:absolute;left:10px;bottom:10px;padding:6px 10px;border-radius:10px;
-      background:rgba(10,12,18,.65);color:#fff;font-weight:700;backdrop-filter:blur(3px)
-    }
+    .tag{position:absolute;left:10px;bottom:10px;padding:6px 10px;border-radius:10px;background:rgba(10,12,18,.65);color:#fff;font-weight:700;backdrop-filter:blur(3px)}
 
-    /* ===== Section: How We Work ===== */
+    /* ===== HOW WE WORK ===== */
     section.flow{padding:64px 0}
     .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:12px}
-    .step{
-      background:var(--glass);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:20px 18px;position:relative
-    }
-    .step:before{
-      content:attr(data-step);position:absolute;top:-10px;left:-10px;background:linear-gradient(90deg,var(--brand1),var(--brand2));
-      color:#0f0f14;font-weight:900;border-radius:12px;padding:6px 10px;box-shadow:0 8px 20px rgba(0,0,0,.35)
-    }
+    .step{background:var(--glass);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:20px 18px;position:relative}
+    .step:before{content:attr(data-step);position:absolute;top:-10px;left:-10px;background:linear-gradient(90deg,var(--brand1),var(--brand2));color:#0f0f14;font-weight:900;border-radius:12px;padding:6px 10px;box-shadow:0 8px 20px rgba(0,0,0,.35)}
     .step h3{margin:8px 0 8px}
     .step p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.6}
 
-    /* ===== Section: CTA ===== */
+    /* ===== CONTACT (no backend needed) ===== */
     section.cta{padding:80px 0}
-    .ctaBox{
-      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
-      border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:28px 22px;text-align:center;
-      box-shadow:0 20px 60px rgba(0,0,0,.35)
-    }
+    .ctaBox{background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:28px 22px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+    form.inline{display:grid;grid-template-columns:2fr 2fr 1fr;gap:10px;margin-top:16px}
+    input,textarea,button{font:inherit}
+    input,textarea{width:100%;padding:12px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:var(--ink)}
+    button.primary{padding:12px 16px;border:none;border-radius:999px;font-weight:900;color:#0f0f14;background:linear-gradient(90deg,var(--brand1),var(--brand2));cursor:pointer}
 
-    /* ===== Footer ===== */
-    footer{padding:28px 0;color:var(--muted);text-align:center}
+    /* ===== Reveal on scroll ===== */
+    .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease}
+    .reveal.show{opacity:1;transform:none}
 
     /* ===== Responsive ===== */
     @media (max-width: 980px){
       .grid3{grid-template-columns:1fr 1fr}
       .steps{grid-template-columns:1fr;gap:14px}
+      form.inline{grid-template-columns:1fr}
     }
     @media (max-width: 640px){
       .hero h1{font-size:34px}
+      .brandmark{width:90px;height:90px}
       .hscroll .card{width:260px;height:170px}
     }
   </style>
 </head>
 <body>
 
-  <!-- Floating single CTA -->
-  <a class="fab" href="mailto:hello@company.ae?subject=Request%20a%20Quote%20-%20Metaflux">Request a Quote</a>
+  <!-- Floating single CTA (magnetic) -->
+  <a class="fab" href="mailto:hello@company.ae?subject=Request%20a%20Quote%20-%20Metaflux" id="fab">Request a Quote</a>
 
-  <!-- ===== HERO / ENTRY ===== -->
+  <!-- ===== HERO ===== -->
   <header class="hero">
-    <div class="orb purple"></div>
-    <div class="orb green"></div>
+    <!-- Parallax glow layers -->
+    <div class="layer p1" data-parallax="-0.12"></div>
+    <div class="layer p2" data-parallax="0.18"></div>
+    <div class="layer p3" data-parallax="0.08"></div>
 
-    <div class="card">
-      <!-- Replace logo.png with your mark; or keep this gradient box with M -->
+    <div class="card reveal">
+      <!-- Replace with your PNG logo: -->
+      <!-- <img src="img/logo.png" alt="Metaflux" class="brandmark" style="background:none;border-radius:0"> -->
       <div class="brandmark">M</div>
       <h1>Metaflux Technologies</h1>
       <p class="tagline">Fluxing Ideas into Reality</p>
-
-      <div class="scroll-hint">
-        <span class="muted">Scroll to explore</span>
-        <span class="arrow"></span>
-      </div>
+      <div class="scroll-hint"><span class="muted">Scroll to explore</span><span class="arrow"></span></div>
     </div>
   </header>
 
   <!-- ===== WHAT WE DO ===== -->
-  <section class="do">
+  <section class="do reveal">
     <div class="wrap center">
       <div class="pillrow">
         <span class="pill">LED Walls</span>
@@ -165,96 +128,114 @@
       </div>
 
       <div class="grid3">
-        <div class="tile">
-          <h3>Big Visual Impact</h3>
-          <p>High-resolution LED that scales from retail pop-ups to stadium screens, with pixel-perfect content.</p>
-        </div>
-        <div class="tile">
-          <h3>Immersive Storytelling</h3>
-          <p>Projection-mapped environments that transform spaces into brand worlds your audience can feel.</p>
-        </div>
-        <div class="tile">
-          <h3>Touch, Play, Share</h3>
-          <p>Interactive layers and AI-powered booths designed to spark engagement and social amplification.</p>
-        </div>
+        <div class="tile"><h3>Big Visual Impact</h3><p>High-resolution LED that scales from retail pop-ups to stadium screens, with pixel-perfect content.</p></div>
+        <div class="tile"><h3>Immersive Storytelling</h3><p>Projection-mapped environments that transform spaces into brand worlds your audience can feel.</p></div>
+        <div class="tile"><h3>Touch, Play, Share</h3><p>Interactive layers and AI-powered booths designed to spark engagement and social amplification.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- ===== PROJECTS — HORIZONTAL SCROLL ===== -->
-  <section class="projects">
+  <!-- ===== PROJECTS â€” HORIZONTAL SCROLL ===== -->
+  <section class="projects reveal">
     <div class="wrap">
-      <div class="bar">
-        <h2>Projects & Activations</h2>
-        <span class="chip">Swipe ?</span>
-      </div>
-
-      <div class="hscroll">
-        <!-- Replace image paths & names; add/remove freely -->
-        <div class="card">
-          <img src="img/project-led-stage.jpg" alt="Corporate LED Stage">
-          <div class="tag">Corporate LED Stage</div>
-        </div>
-        <div class="card">
-          <img src="img/outdoor-screen.jpg" alt="Outdoor Sports Screen">
-          <div class="tag">Outdoor Sports Screen</div>
-        </div>
-        <div class="card">
-          <img src="img/projection-mapping.jpg" alt="Projection Mapping">
-          <div class="tag">Projection Mapping</div>
-        </div>
-        <div class="card">
-          <img src="img/interactive-booth.jpg" alt="Interactive Photobooth">
-          <div class="tag">Interactive Photobooth</div>
-        </div>
-        <div class="card">
-          <img src="img/rental-led-panels.jpg" alt="Rental LED Panels">
-          <div class="tag">Rental LED Panels</div>
-        </div>
-        <div class="card">
-          <img src="img/truss-rigging.jpg" alt="Truss & Rigging">
-          <div class="tag">Truss & Rigging</div>
-        </div>
+      <div class="bar"><h2>Projects & Activations</h2><span class="chip">Swipe â†’</span></div>
+      <div class="hscroll" id="gallery">
+        <!-- Replace images & names; add/remove freely -->
+        <div class="card"><img src="img/project-led-stage.jpg" alt="Corporate LED Stage"><div class="tag">Corporate LED Stage</div></div>
+        <div class="card"><img src="img/outdoor-screen.jpg" alt="Outdoor Sports Screen"><div class="tag">Outdoor Sports Screen</div></div>
+        <div class="card"><img src="img/projection-mapping.jpg" alt="Projection Mapping"><div class="tag">Projection Mapping</div></div>
+        <div class="card"><img src="img/interactive-booth.jpg" alt="Interactive Photobooth"><div class="tag">Interactive Photobooth</div></div>
+        <div class="card"><img src="img/rental-led-panels.jpg" alt="Rental LED Panels"><div class="tag">Rental LED Panels</div></div>
+        <div class="card"><img src="img/truss-rigging.jpg" alt="Truss & Rigging"><div class="tag">Truss & Rigging</div></div>
       </div>
     </div>
   </section>
 
   <!-- ===== HOW WE WORK ===== -->
-  <section class="flow">
+  <section class="flow reveal">
     <div class="wrap">
       <h2 class="center">How We Work</h2>
       <div class="steps">
-        <div class="step" data-step="1">
-          <h3>Concept</h3>
-          <p>We align on your story, audience journey, and venue constraints, then blueprint the experience.</p>
-        </div>
-        <div class="step" data-step="2">
-          <h3>Design</h3>
-          <p>Content, mapping, and interactive flows — simulated in 3D where helpful to lock clarity early.</p>
-        </div>
-        <div class="step" data-step="3">
-          <h3>Execution</h3>
-          <p>On-site build, calibration, and live ops with redundancy, so showtime is smooth and stress-free.</p>
-        </div>
+        <div class="step" data-step="1"><h3>Concept</h3><p>We align on story, audience journey, and venue constraints, then blueprint the experience.</p></div>
+        <div class="step" data-step="2"><h3>Design</h3><p>Content, mapping, and interactive flows â€” simulated in 3D where helpful to lock clarity early.</p></div>
+        <div class="step" data-step="3"><h3>Execution</h3><p>On-site build, calibration, and live ops with redundancy, so showtime is smooth and stressâ€‘free.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- ===== CTA ===== -->
-  <section class="cta">
+  <!-- ===== CONTACT (FormSubmit) ===== -->
+  <section class="cta reveal">
     <div class="wrap">
       <div class="ctaBox">
         <h2>Ready to light up your next event?</h2>
-        <p class="muted">Share your date, venue, and rough idea — we’ll shape the experience.</p>
-        <p style="margin-top:14px">
-          <a class="chip" href="mailto:hello@company.ae?subject=Request%20a%20Quote%20-%20Metaflux">Request a Quote</a>
-        </p>
+        <p class="muted">Share your date, venue, and rough idea â€” weâ€™ll shape the experience.</p>
+        <form class="inline" action="https://formsubmit.co/YOUR_EMAIL_HERE" method="POST">
+          <!-- Replace YOUR_EMAIL_HERE with your email. FormSubmit will email you the submission. -->
+          <input type="hidden" name="_subject" value="New Quote Request â€” Metaflux" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="text" name="name" placeholder="Your Name" required />
+          <input type="email" name="email" placeholder="Email" required />
+          <button class="primary" type="submit">Send</button>
+          <textarea name="message" placeholder="Tell us about the event (date, venue, idea)" rows="4" style="grid-column:1 / -1"></textarea>
+        </form>
       </div>
     </div>
   </section>
 
-  <footer>
-    © Metaflux Technologies, 2025–present. All rights reserved.
-  </footer>
+  <footer>Â© Metaflux Technologies, 2025â€“present. All rights reserved.</footer>
+
+  <script>
+    // ===== Parallax effect on scroll =====
+    const layers = document.querySelectorAll('[data-parallax]');
+    const parallax = () => {
+      const y = window.scrollY || window.pageYOffset;
+      layers.forEach(el => {
+        const speed = parseFloat(el.getAttribute('data-parallax'));
+        el.style.transform = `translateY(${y * speed}px)`;
+      });
+    };
+    window.addEventListener('scroll', parallax, {passive:true});
+    parallax();
+
+    // ===== Reveal on scroll =====
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target);} });
+    }, {threshold:.18});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    // ===== Magnetic FAB (desktop only) =====
+    const fab = document.getElementById('fab');
+    const isTouch = matchMedia('(pointer: coarse)').matches;
+    if(!isTouch){
+      let rafId=null;
+      window.addEventListener('mousemove', (e)=>{
+        if(rafId) cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(()=>{
+          const rect = fab.getBoundingClientRect();
+          const cx = rect.left + rect.width/2;
+          const cy = rect.top + rect.height/2;
+          const dx = (e.clientX - cx) * 0.06; // magnetic strength
+          const dy = (e.clientY - cy) * 0.06;
+          fab.style.transform = `translate(${dx}px, ${dy}px)`;
+        });
+      });
+      fab.addEventListener('mouseleave', ()=>{ fab.style.transform = 'translate(0,0)'; });
+    }
+
+    // ===== Optional: Clickâ€‘drag scroll on gallery (desktop convenience) =====
+    const scroller = document.getElementById('gallery');
+    let isDown=false,startX,scrollLeft;
+    scroller.addEventListener('mousedown',e=>{isDown=true;scroller.classList.add('grab');startX=e.pageX - scroller.offsetLeft;scrollLeft=scroller.scrollLeft});
+    ['mouseleave','mouseup'].forEach(ev=>scroller.addEventListener(ev,()=>{isDown=false;scroller.classList.remove('grab')}));
+    scroller.addEventListener('mousemove',e=>{ if(!isDown) return; e.preventDefault(); const x=e.pageX - scroller.offsetLeft; const walk=(x-startX)*1.2; scroller.scrollLeft = scrollLeft - walk; });
+  </script>
+
+  <!--
+    NOTE: This file is selfâ€‘contained for easy preview on GitHub Pages.
+    To split into separate files later:
+      - Move everything inside <style> to /style.css and link it: <link rel="stylesheet" href="style.css">
+      - Move everything inside <script> to /script.js and link it: <script src="script.js" defer></script>
+      - Keep the same HTML structure.
+  -->
 </body>
 </html>
