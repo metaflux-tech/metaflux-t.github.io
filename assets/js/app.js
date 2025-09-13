@@ -16,7 +16,7 @@ async function loadSection(id, relPath){
 }
 
 (function(){
-  if(document.getElementById('hero')) loadSection('hero','partials/hero.html');
+  if(document.getElementById('hero')) /*loadSection('hero','partials/hero.html');*/
   if(document.getElementById('do')) loadSection('do','partials/whatwedo.html');
   if(document.getElementById('flow')) loadSection('flow','partials/flow.html');
   if(document.getElementById('cta')) loadSection('cta','partials/cta.html');
@@ -67,3 +67,4 @@ window.addEventListener('DOMContentLoaded', ()=>{
   if(document.getElementById('gallery')) renderGallery('gallery');
   if(document.getElementById('gallery-preview')) renderGallery('gallery-preview', 6);
 });
+
