@@ -86,4 +86,13 @@ footer{padding:28px 0;color:var(--muted);text-align:center}
 @media (max-width:640px){
   .brandname{font-size:34px}
   .brandlogo{width:96px}
+/* === Force hero background image (wins over any earlier rules) === */
+#hero.hero{
+  background-image: url('img/hero-bg.jpg') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-color: #000; /* fallback */
 }
+}
+
