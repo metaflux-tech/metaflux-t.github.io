@@ -1,3 +1,35 @@
+<!--
+Metaflux Modular Site Scaffold (GitHub Pages friendly)
+Goal: keep updates tiny by splitting code into small files.
+Folder layout you should create in your repo:
+/
+  index.html               ← landing page that loads partial sections
+  projects.html            ← projects & activations page (auto‑renders from JSON)
+  contact.html             ← lightweight contact/CTA page (optional; mailto/whatsapp)
+  assets/
+    css/style.css
+    js/app.js
+  data/
+    projects.json          ← only file you edit to add/remove projects
+  partials/
+    hero.html
+    whatwedo.html
+    flow.html
+    cta.html
+  img/
+    logo.png
+    projects/...           ← put your images here
+
+How to update projects later:
+1) Upload a new image to /img/projects/
+2) Add one JSON entry in /data/projects.json (title + image path). That’s it.
+
+Below are all files’ contents. Create them exactly as shown.
+-->
+
+==============================
+File: index.html
+==============================
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -289,15 +321,23 @@ footer{padding:28px 0;color:var(--muted);text-align:center}
 ==============================
 File: assets/js/app.js
 ==============================
-// Utility: load partial HTML into a container by id
-async function loadSection(id, url){
+// Resolve URLs robustly for both root sites and project sites
+const BASE = new URL('.', window.location.href);
+
+async function loadSection(id, relPath){
   const host = document.getElementById(id);
   if(!host) return;
-  try{ const res = await fetch(url); host.innerHTML = await res.text(); }
-  catch(e){ host.innerHTML = `<div class="wrap">Failed to load ${url}</div>`; }
+  try{
+    const url = new URL(relPath, BASE);
+    const res = await fetch(url);
+    if(!res.ok) throw new Error(res.status + ' ' + res.statusText);
+    host.innerHTML = await res.text();
+  }catch(e){
+    host.innerHTML = `<div class="wrap muted">Failed to load ${relPath}: ${e.message}</div>`;
+    console.warn('Partial load failed:', relPath, e);
+  }
 }
 
-// Load sections on index.html
 (function(){
   if(document.getElementById('hero')) loadSection('hero','partials/hero.html');
   if(document.getElementById('do')) loadSection('do','partials/whatwedo.html');
@@ -305,15 +345,13 @@ async function loadSection(id, url){
   if(document.getElementById('cta')) loadSection('cta','partials/cta.html');
 })();
 
-// Parallax for glow layers (only if present)
 function parallax(){
   const layers = document.querySelectorAll('[data-parallax]');
   const y = window.scrollY || window.pageYOffset;
-  layers.forEach(el=>{ const s = parseFloat(el.getAttribute('data-parallax')); el.style.transform = `translateY(${y * s}px)`; });
+  layers.forEach(el=>{ const s = parseFloat(el.getAttribute('data-parallax'))||0; el.style.transform = `translateY(${y * s}px)`; });
 }
 window.addEventListener('scroll', parallax, {passive:true});
 
-// Reveal on scroll
 const io = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target);} });
 },{threshold:.18});
@@ -322,12 +360,13 @@ window.addEventListener('DOMContentLoaded', ()=>{
   parallax();
 });
 
-// Horizontal gallery render (projects.html and index preview)
 async function renderGallery(targetId, limit){
   const host = document.getElementById(targetId);
   if(!host) return;
   try{
-    const res = await fetch('data/projects.json');
+    const url = new URL('data/projects.json', BASE);
+    const res = await fetch(url);
+    if(!res.ok) throw new Error(res.status + ' ' + res.statusText);
     const items = await res.json();
     const slice = typeof limit === 'number' ? items.slice(0, limit) : items;
     host.innerHTML = slice.map(x => `
@@ -337,12 +376,14 @@ async function renderGallery(targetId, limit){
       </div>
     `).join('');
 
-    // desktop drag-to-scroll
     let isDown=false,startX,scrollLeft; const scroller=host;
     scroller.addEventListener('mousedown',e=>{isDown=true;startX=e.pageX - scroller.offsetLeft;scrollLeft=scroller.scrollLeft});
     ['mouseleave','mouseup'].forEach(ev=>scroller.addEventListener(ev,()=>{isDown=false}));
     scroller.addEventListener('mousemove',e=>{ if(!isDown) return; e.preventDefault(); const x=e.pageX - scroller.offsetLeft; const walk=(x-startX)*1.2; scroller.scrollLeft = scrollLeft - walk; });
-  }catch(e){ host.innerHTML = '<div class="muted">Could not load gallery.</div>'; }
+  }catch(e){
+    host.innerHTML = '<div class="wrap muted">Could not load gallery.</div>';
+    console.warn('Gallery load failed:', e);
+  }
 }
 
 window.addEventListener('DOMContentLoaded', ()=>{
