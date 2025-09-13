@@ -1,1 +1,26 @@
-
+[
+  {
+    "title": "Corporate LED Stage",
+    "image": "img/projects/corporate-led-stage.jpg"
+  },
+  {
+    "title": "Outdoor Sports Screen",
+    "image": "img/projects/outdoor-screen.jpg"
+  },
+  {
+    "title": "Projection Mapping",
+    "image": "img/projects/projection-mapping.jpg"
+  },
+  {
+    "title": "Interactive Photobooth",
+    "image": "img/projects/interactive-booth.jpg"
+  },
+  {
+    "title": "Rental LED Panels",
+    "image": "img/projects/rental-led-panels.jpg"
+  },
+  {
+    "title": "Truss & Rigging",
+    "image": "img/projects/truss-rigging.jpg"
+  }
+]
