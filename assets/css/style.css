@@ -14,11 +14,20 @@ img{max-width:100%;display:block}
 .center{text-align:center}.muted{color:var(--muted)}
 
 /* ===== HERO (NO gradient layers) ===== */
-.hero{
-  position:relative; min-height:100vh;
-  display:flex; align-items:center; justify-content:center;
-  text-align:center; overflow:hidden;
-  background: url('img/hero-bg.jpg') center/cover no-repeat; /* your photo */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+
+  /* use the hero image (no gradient) */
+  background-image: url('img/hero-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 .card{
   position:relative; z-index:2;
@@ -87,12 +96,15 @@ footer{padding:28px 0;color:var(--muted);text-align:center}
   .brandname{font-size:34px}
   .brandlogo{width:96px}
 /* === Force hero background image (wins over any earlier rules) === */
-#hero.hero{
+
+  /* Force the hero background in case older rules linger */
+#hero.hero {
   background-image: url('img/hero-bg.jpg') !important;
   background-size: cover !important;
   background-position: center !important;
   background-repeat: no-repeat !important;
-  background-color: #000; /* fallback */
 }
+
 }
+
 
