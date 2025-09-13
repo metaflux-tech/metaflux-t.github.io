@@ -1,3 +1,35 @@
+<!--
+Metaflux Modular Site Scaffold (GitHub Pages friendly)
+Goal: keep updates tiny by splitting code into small files.
+Folder layout you should create in your repo:
+/
+  index.html               ← landing page that loads partial sections
+  projects.html            ← projects & activations page (auto‑renders from JSON)
+  contact.html             ← lightweight contact/CTA page (optional; mailto/whatsapp)
+  assets/
+    css/style.css
+    js/app.js
+  data/
+    projects.json          ← only file you edit to add/remove projects
+  partials/
+    hero.html
+    whatwedo.html
+    flow.html
+    cta.html
+  img/
+    logo.png
+    projects/...           ← put your images here
+
+How to update projects later:
+1) Upload a new image to /img/projects/
+2) Add one JSON entry in /data/projects.json (title + image path). That’s it.
+
+Below are all files’ contents. Create them exactly as shown.
+-->
+
+==============================
+File: index.html
+==============================
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,237 +37,347 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Metaflux Technologies — Fluxing Ideas into Reality</title>
   <meta name="description" content="Experiential marketing, LED walls, projection mapping, interactive activations across the UAE." />
-  <style>
-    :root{
-      --bg:#0b0b10;
-      --ink:#e9f1ff;
-      --muted:#a8b0c2;
-      --brand1:#7d00ff;     /* purple */
-      --brand2:#00ffb9;     /* green */
-      --brand3:#3aa6ff;     /* blue accents */
-      --glass:rgba(255,255,255,.06);
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,Arial,Helvetica,sans-serif;scroll-behavior:smooth}
-    a{color:inherit;text-decoration:none}
-    img{max-width:100%;display:block}
-
-    .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
-    .center{text-align:center}
-    .muted{color:var(--muted)}
-
-    /* ===== HERO ===== */
-    header.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center}
-    /* parallax layers */
-    .layer{position:absolute;inset:-10%;pointer-events:none;filter:blur(40px);opacity:.45;mix-blend-mode:screen}
-    .layer.p1{background:radial-gradient(480px 320px at 15% 15%, rgba(125,0,255,.55), transparent 60%)}
-    .layer.p2{background:radial-gradient(520px 360px at 85% 85%, rgba(0,255,185,.45), transparent 60%)}
-    .layer.p3{background:radial-gradient(480px 320px at 60% 20%, rgba(58,166,255,.35), transparent 60%)}
-
-    .hero .card{position:relative;z-index:2;padding:34px 26px;border-radius:20px;background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));box-shadow:0 30px 80px rgba(0,0,0,.35);backdrop-filter: blur(10px);max-width:860px}
-    .brandmark{width:110px;height:110px;border-radius:18px;margin:0 auto 10px auto;background:linear-gradient(135deg,var(--brand1),var(--brand2));display:flex;align-items:center;justify-content:center;font-weight:900;color:#0f0f14;letter-spacing:1px}
-    .hero h1{margin:8px 0 6px;font-size:44px;line-height:1.05}
-    .hero .tagline{font-size:18px;color:var(--muted);margin:0 0 6px 0}
-    .scroll-hint{margin-top:10px;color:var(--muted);font-size:14px;display:inline-flex;gap:10px;align-items:center}
-    .arrow{width:10px;height:18px;border-left:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(-45deg);margin-top:4px;animation:bob 1.6s ease-in-out infinite}
-    @keyframes bob{0%,100%{transform:translateY(0) rotate(-45deg)}50%{transform:translateY(6px) rotate(-45deg)}}
-
-    /* Floating CTA (magnetic on desktop) */
-    .fab{position:fixed;right:16px;bottom:16px;z-index:30;background:linear-gradient(90deg,var(--brand1),var(--brand2));color:#0f0f14;padding:14px 18px;border-radius:999px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.35);transition:transform .12s ease}
-
-    /* ===== WHAT WE DO ===== */
-    section.do{padding:70px 0}
-    .pillrow{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:18px 0 6px}
-    .pill{padding:10px 14px;border-radius:999px;background:var(--glass);border:1px solid rgba(255,255,255,.08)}
-    .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:26px}
-    .tile{background:var(--glass);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:18px 16px;min-height:120px}
-    .tile h3{margin:0 0 6px}
-    .tile p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.6}
-
-    /* ===== PROJECTS (Horizontal) ===== */
-    section.projects{padding:20px 0 14px}
-    .bar{display:flex;justify-content:space-between;align-items:center;margin:0 0 10px 0}
-    .chip{display:inline-block;padding:8px 12px;border-radius:999px;background:linear-gradient(90deg,var(--brand1),var(--brand2));color:#0f0f14;font-weight:800}
-    .hscroll{display:flex;gap:16px;overflow-x:auto;padding:10px 6px 22px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
-    .card{position:relative;flex:0 0 auto;width:320px;height:210px;border-radius:16px;overflow:hidden;background:#111;border:1px solid rgba(255,255,255,.08);scroll-snap-align:start;box-shadow:0 12px 34px rgba(0,0,0,.35)}
-    .card img{width:100%;height:100%;object-fit:cover;display:block;filter:contrast(1.03) saturate(1.05)}
-    .tag{position:absolute;left:10px;bottom:10px;padding:6px 10px;border-radius:10px;background:rgba(10,12,18,.65);color:#fff;font-weight:700;backdrop-filter:blur(3px)}
-
-    /* ===== HOW WE WORK ===== */
-    section.flow{padding:64px 0}
-    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:12px}
-    .step{background:var(--glass);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:20px 18px;position:relative}
-    .step:before{content:attr(data-step);position:absolute;top:-10px;left:-10px;background:linear-gradient(90deg,var(--brand1),var(--brand2));color:#0f0f14;font-weight:900;border-radius:12px;padding:6px 10px;box-shadow:0 8px 20px rgba(0,0,0,.35)}
-    .step h3{margin:8px 0 8px}
-    .step p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.6}
-
-    /* ===== CONTACT (no backend needed) ===== */
-    section.cta{padding:80px 0}
-    .ctaBox{background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:28px 22px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.35)}
-    form.inline{display:grid;grid-template-columns:2fr 2fr 1fr;gap:10px;margin-top:16px}
-    input,textarea,button{font:inherit}
-    input,textarea{width:100%;padding:12px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:var(--ink)}
-    button.primary{padding:12px 16px;border:none;border-radius:999px;font-weight:900;color:#0f0f14;background:linear-gradient(90deg,var(--brand1),var(--brand2));cursor:pointer}
-
-    /* ===== Reveal on scroll ===== */
-    .reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease}
-    .reveal.show{opacity:1;transform:none}
-
-    /* ===== Responsive ===== */
-    @media (max-width: 980px){
-      .grid3{grid-template-columns:1fr 1fr}
-      .steps{grid-template-columns:1fr;gap:14px}
-      form.inline{grid-template-columns:1fr}
-    }
-    @media (max-width: 640px){
-      .hero h1{font-size:34px}
-      .brandmark{width:90px;height:90px}
-      .hscroll .card{width:260px;height:170px}
-    }
-  </style>
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
-
-  <!-- Floating single CTA (magnetic) -->
   <a class="fab" href="mailto:hello@company.ae?subject=Request%20a%20Quote%20-%20Metaflux" id="fab">Request a Quote</a>
 
-  <!-- ===== HERO ===== -->
-  <header class="hero">
-    <!-- Parallax glow layers -->
-    <div class="layer p1" data-parallax="-0.12"></div>
-    <div class="layer p2" data-parallax="0.18"></div>
-    <div class="layer p3" data-parallax="0.08"></div>
+  <!-- Sections load from /partials via JS so you can edit tiny files -->
+  <header id="hero" class="hero"></header>
+  <section id="do" class="do reveal"></section>
+  <section id="projectsIntro" class="projects reveal">
+    <div class="wrap">
+      <div class="bar"><h2>Projects & Activations</h2><a class="chip" href="projects.html">Open gallery →</a></div>
+      <div class="hscroll" id="gallery-preview"></div>
+    </div>
+  </section>
+  <section id="flow" class="flow reveal"></section>
+  <section id="cta" class="cta reveal"></section>
 
-    <div class="card reveal">
-      <!-- Replace with your PNG logo: -->
-      <!-- <img src="img/logo.png" alt="Metaflux" class="brandmark" style="background:none;border-radius:0"> -->
+  <footer>© Metaflux Technologies, 2025–present. All rights reserved.</footer>
+
+  <script src="assets/js/app.js" defer></script>
+</body>
+</html>
+
+
+==============================
+File: projects.html
+==============================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Projects & Activations — Metaflux</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <a class="fab" href="mailto:hello@company.ae?subject=Request%20a%20Quote%20-%20Metaflux">Request a Quote</a>
+  <section class="hero hero-slim">
+    <div class="card">
       <div class="brandmark">M</div>
-      <h1>Metaflux Technologies</h1>
-      <p class="tagline">Fluxing Ideas into Reality</p>
-      <div class="scroll-hint"><span class="muted">Scroll to explore</span><span class="arrow"></span></div>
-    </div>
-  </header>
-
-  <!-- ===== WHAT WE DO ===== -->
-  <section class="do reveal">
-    <div class="wrap center">
-      <div class="pillrow">
-        <span class="pill">LED Walls</span>
-        <span class="pill">Projection Mapping</span>
-        <span class="pill">Interactive Games</span>
-        <span class="pill">AI Photo/Video Booths</span>
-        <span class="pill">Event Tech & Rentals</span>
-      </div>
-
-      <div class="grid3">
-        <div class="tile"><h3>Big Visual Impact</h3><p>High-resolution LED that scales from retail pop-ups to stadium screens, with pixel-perfect content.</p></div>
-        <div class="tile"><h3>Immersive Storytelling</h3><p>Projection-mapped environments that transform spaces into brand worlds your audience can feel.</p></div>
-        <div class="tile"><h3>Touch, Play, Share</h3><p>Interactive layers and AI-powered booths designed to spark engagement and social amplification.</p></div>
-      </div>
+      <h1>Projects & Activations</h1>
+      <p class="tagline">Swipe through recent work</p>
     </div>
   </section>
 
-  <!-- ===== PROJECTS — HORIZONTAL SCROLL ===== -->
-  <section class="projects reveal">
+  <section class="projects">
     <div class="wrap">
-      <div class="bar"><h2>Projects & Activations</h2><span class="chip">Swipe →</span></div>
-      <div class="hscroll" id="gallery">
-        <!-- Replace images & names; add/remove freely -->
-        <div class="card"><img src="img/project-led-stage.jpg" alt="Corporate LED Stage"><div class="tag">Corporate LED Stage</div></div>
-        <div class="card"><img src="img/outdoor-screen.jpg" alt="Outdoor Sports Screen"><div class="tag">Outdoor Sports Screen</div></div>
-        <div class="card"><img src="img/projection-mapping.jpg" alt="Projection Mapping"><div class="tag">Projection Mapping</div></div>
-        <div class="card"><img src="img/interactive-booth.jpg" alt="Interactive Photobooth"><div class="tag">Interactive Photobooth</div></div>
-        <div class="card"><img src="img/rental-led-panels.jpg" alt="Rental LED Panels"><div class="tag">Rental LED Panels</div></div>
-        <div class="card"><img src="img/truss-rigging.jpg" alt="Truss & Rigging"><div class="tag">Truss & Rigging</div></div>
-      </div>
+      <div class="bar"><h2>Gallery</h2><span class="chip">Swipe →</span></div>
+      <div class="hscroll" id="gallery"></div>
     </div>
   </section>
 
-  <!-- ===== HOW WE WORK ===== -->
-  <section class="flow reveal">
-    <div class="wrap">
-      <h2 class="center">How We Work</h2>
-      <div class="steps">
-        <div class="step" data-step="1"><h3>Concept</h3><p>We align on story, audience journey, and venue constraints, then blueprint the experience.</p></div>
-        <div class="step" data-step="2"><h3>Design</h3><p>Content, mapping, and interactive flows — simulated in 3D where helpful to lock clarity early.</p></div>
-        <div class="step" data-step="3"><h3>Execution</h3><p>On-site build, calibration, and live ops with redundancy, so showtime is smooth and stress‑free.</p></div>
-      </div>
+  <footer>© Metaflux Technologies, 2025–present. All rights reserved.</footer>
+  <script src="assets/js/app.js" defer></script>
+</body>
+</html>
+
+
+==============================
+File: contact.html (optional)
+==============================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact — Metaflux</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <section class="hero hero-slim">
+    <div class="card">
+      <div class="brandmark">M</div>
+      <h1>Contact Metaflux</h1>
+      <p class="tagline">Tell us your date, venue, and idea</p>
     </div>
   </section>
 
-  <!-- ===== CONTACT (FormSubmit) ===== -->
   <section class="cta reveal">
     <div class="wrap">
       <div class="ctaBox">
-        <h2>Ready to light up your next event?</h2>
-        <p class="muted">Share your date, venue, and rough idea — we’ll shape the experience.</p>
+        <h2>Request a Quote</h2>
+        <p class="muted">We’ll reply within 24 hours.</p>
         <form class="inline" action="https://formsubmit.co/YOUR_EMAIL_HERE" method="POST">
-          <!-- Replace YOUR_EMAIL_HERE with your email. FormSubmit will email you the submission. -->
           <input type="hidden" name="_subject" value="New Quote Request — Metaflux" />
           <input type="hidden" name="_captcha" value="false" />
           <input type="text" name="name" placeholder="Your Name" required />
           <input type="email" name="email" placeholder="Email" required />
           <button class="primary" type="submit">Send</button>
-          <textarea name="message" placeholder="Tell us about the event (date, venue, idea)" rows="4" style="grid-column:1 / -1"></textarea>
+          <textarea name="message" placeholder="Event details (date, venue, idea)" rows="4" style="grid-column:1 / -1"></textarea>
         </form>
+        <p style="margin-top:14px">
+          Or email <a href="mailto:hello@company.ae">hello@company.ae</a>
+        </p>
       </div>
     </div>
   </section>
 
-  <footer>© Metaflux Technologies, 2025–present. All rights reserved.</footer>
+  <footer class="foot-social">
+    <div class="wrap center">
+      <a class="chip" href="https://wa.me/9715XXXXXXXX?text=Hi%20Metaflux%2C%20I’d%20like%20a%20quote" target="_blank" rel="noopener">WhatsApp Us</a>
+      <div class="socials">
+        <a href="#" aria-label="Instagram">IG</a>
+        <a href="#" aria-label="LinkedIn">IN</a>
+      </div>
+      <div style="margin-top:8px">© Metaflux Technologies, 2025–present. All rights reserved.</div>
+    </div>
+  </footer>
 
-  <script>
-    // ===== Parallax effect on scroll =====
-    const layers = document.querySelectorAll('[data-parallax]');
-    const parallax = () => {
-      const y = window.scrollY || window.pageYOffset;
-      layers.forEach(el => {
-        const speed = parseFloat(el.getAttribute('data-parallax'));
-        el.style.transform = `translateY(${y * speed}px)`;
-      });
-    };
-    window.addEventListener('scroll', parallax, {passive:true});
-    parallax();
-
-    // ===== Reveal on scroll =====
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target);} });
-    }, {threshold:.18});
-    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-
-    // ===== Magnetic FAB (desktop only) =====
-    const fab = document.getElementById('fab');
-    const isTouch = matchMedia('(pointer: coarse)').matches;
-    if(!isTouch){
-      let rafId=null;
-      window.addEventListener('mousemove', (e)=>{
-        if(rafId) cancelAnimationFrame(rafId);
-        rafId = requestAnimationFrame(()=>{
-          const rect = fab.getBoundingClientRect();
-          const cx = rect.left + rect.width/2;
-          const cy = rect.top + rect.height/2;
-          const dx = (e.clientX - cx) * 0.06; // magnetic strength
-          const dy = (e.clientY - cy) * 0.06;
-          fab.style.transform = `translate(${dx}px, ${dy}px)`;
-        });
-      });
-      fab.addEventListener('mouseleave', ()=>{ fab.style.transform = 'translate(0,0)'; });
-    }
-
-    // ===== Optional: Click‑drag scroll on gallery (desktop convenience) =====
-    const scroller = document.getElementById('gallery');
-    let isDown=false,startX,scrollLeft;
-    scroller.addEventListener('mousedown',e=>{isDown=true;scroller.classList.add('grab');startX=e.pageX - scroller.offsetLeft;scrollLeft=scroller.scrollLeft});
-    ['mouseleave','mouseup'].forEach(ev=>scroller.addEventListener(ev,()=>{isDown=false;scroller.classList.remove('grab')}));
-    scroller.addEventListener('mousemove',e=>{ if(!isDown) return; e.preventDefault(); const x=e.pageX - scroller.offsetLeft; const walk=(x-startX)*1.2; scroller.scrollLeft = scrollLeft - walk; });
-  </script>
-
-  <!--
-    NOTE: This file is self‑contained for easy preview on GitHub Pages.
-    To split into separate files later:
-      - Move everything inside <style> to /style.css and link it: <link rel="stylesheet" href="style.css">
-      - Move everything inside <script> to /script.js and link it: <script src="script.js" defer></script>
-      - Keep the same HTML structure.
-  -->
+  <script src="assets/js/app.js" defer></script>
 </body>
 </html>
+
+
+==============================
+File: partials/hero.html
+==============================
+<div class="layer p1" data-parallax="-0.12"></div>
+<div class="layer p2" data-parallax="0.18"></div>
+<div class="layer p3" data-parallax="0.08"></div>
+<div class="card reveal">
+  <!-- Replace with your PNG logo if desired: <img src="img/logo.png" class="brandmark" alt="Metaflux" style="background:none;border-radius:0"> -->
+  <div class="brandmark">M</div>
+  <h1>Metaflux Technologies</h1>
+  <p class="tagline">Fluxing Ideas into Reality</p>
+  <div class="scroll-hint"><span class="muted">Scroll to explore</span><span class="arrow"></span></div>
+</div>
+
+
+==============================
+File: partials/whatwedo.html
+==============================
+<div class="wrap center">
+  <div class="pillrow">
+    <span class="pill">LED Walls</span>
+    <span class="pill">Projection Mapping</span>
+    <span class="pill">Interactive Games</span>
+    <span class="pill">AI Photo/Video Booths</span>
+    <span class="pill">Event Tech & Rentals</span>
+  </div>
+  <div class="grid3">
+    <div class="tile"><h3>Big Visual Impact</h3><p>High‑resolution LED that scales from retail pop‑ups to stadium screens.</p></div>
+    <div class="tile"><h3>Immersive Storytelling</h3><p>Projection‑mapped environments that transform spaces into brand worlds.</p></div>
+    <div class="tile"><h3>Touch, Play, Share</h3><p>Interactive layers and AI‑powered booths to spark engagement.</p></div>
+  </div>
+</div>
+
+
+==============================
+File: partials/flow.html
+==============================
+<div class="wrap">
+  <h2 class="center">How We Work</h2>
+  <div class="steps">
+    <div class="step" data-step="1"><h3>Concept</h3><p>Story, audience journey, venue constraints → clear blueprint.</p></div>
+    <div class="step" data-step="2"><h3>Design</h3><p>Content, mapping, and interactivity — simulated in 3D when helpful.</p></div>
+    <div class="step" data-step="3"><h3>Execution</h3><p>On‑site build, calibration, and live ops with redundancy.</p></div>
+  </div>
+</div>
+
+
+==============================
+File: partials/cta.html
+==============================
+<div class="wrap">
+  <div class="ctaBox">
+    <h2>Ready to light up your next event?</h2>
+    <p class="muted">Share your date, venue, and rough idea — we’ll shape the experience.</p>
+    <p style="margin-top:14px">
+      <a class="chip" href="mailto:hello@company.ae?subject=Request%20a%20Quote%20-%20Metaflux">Request a Quote</a>
+    </p>
+  </div>
+</div>
+
+
+==============================
+File: data/projects.json
+==============================
+[
+  {
+    "title": "Corporate LED Stage",
+    "image": "img/projects/corporate-led-stage.jpg"
+  },
+  {
+    "title": "Outdoor Sports Screen",
+    "image": "img/projects/outdoor-screen.jpg"
+  },
+  {
+    "title": "Projection Mapping",
+    "image": "img/projects/projection-mapping.jpg"
+  },
+  {
+    "title": "Interactive Photobooth",
+    "image": "img/projects/interactive-booth.jpg"
+  },
+  {
+    "title": "Rental LED Panels",
+    "image": "img/projects/rental-led-panels.jpg"
+  },
+  {
+    "title": "Truss & Rigging",
+    "image": "img/projects/truss-rigging.jpg"
+  }
+]
+
+
+==============================
+File: assets/css/style.css
+==============================
+:root{--bg:#0b0b10;--ink:#e9f1ff;--muted:#a8b0c2;--brand1:#7d00ff;--brand2:#00ffb9;--brand3:#3aa6ff;--glass:rgba(255,255,255,.06)}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,Arial,Helvetica,sans-serif;scroll-behavior:smooth}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+.center{text-align:center}.muted{color:var(--muted)}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;text-align:center;background:radial-gradient(1000px 600px at 20% 10%, rgba(125,0,255,.25), transparent 60%),radial-gradient(1000px 600px at 80% 90%, rgba(0,255,185,.18), transparent 60%),linear-gradient(180deg, #0b0b10, #0b0b10)}
+.hero.hero-slim{min-height:54vh}
+.layer{position:absolute;inset:-10%;pointer-events:none;filter:blur(40px);opacity:.45;mix-blend-mode:screen}
+.layer.p1{background:radial-gradient(480px 320px at 15% 15%, rgba(125,0,255,.55), transparent 60%)}
+.layer.p2{background:radial-gradient(520px 360px at 85% 85%, rgba(0,255,185,.45), transparent 60%)}
+.layer.p3{background:radial-gradient(480px 320px at 60% 20%, rgba(58,166,255,.35), transparent 60%)}
+.hero .card{position:relative;z-index:2;padding:34px 26px;border-radius:20px;background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));box-shadow:0 30px 80px rgba(0,0,0,.35);backdrop-filter: blur(10px);max-width:860px}
+.brandmark{width:110px;height:110px;border-radius:18px;margin:0 auto 10px;background:linear-gradient(135deg,var(--brand1),var(--brand2));display:flex;align-items:center;justify-content:center;font-weight:900;color:#0f0f14;letter-spacing:1px}
+.hero h1{margin:8px 0 6px;font-size:44px;line-height:1.05}
+.tagline{font-size:18px;color:var(--muted);margin:0 0 6px}
+.scroll-hint{margin-top:10px;color:var(--muted);font-size:14px;display:inline-flex;gap:10px;align-items:center}
+.arrow{width:10px;height:18px;border-left:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(-45deg);margin-top:4px;animation:bob 1.6s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-45deg)}50%{transform:translateY(6px) rotate(-45deg)}}
+
+/* CTA Floating */
+.fab{position:fixed;right:16px;bottom:16px;z-index:30;background:linear-gradient(90deg,var(--brand1),var(--brand2));color:#0f0f14;padding:14px 18px;border-radius:999px;font-weight:800;box-shadow:0 12px 28px rgba(0,0,0,.35)}
+
+/* WHAT WE DO */
+.do{padding:70px 0}
+.pillrow{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:18px 0 6px}
+.pill{padding:10px 14px;border-radius:999px;background:var(--glass);border:1px solid rgba(255,255,255,.08)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:26px}
+.tile{background:var(--glass);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:18px 16px;min-height:120px}
+.tile h3{margin:0 0 6px}.tile p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.6}
+
+/* PROJECTS */
+.projects{padding:20px 0 14px}
+.bar{display:flex;justify-content:space-between;align-items:center;margin:0 0 10px}
+.chip{display:inline-block;padding:8px 12px;border-radius:999px;background:linear-gradient(90deg,var(--brand1),var(--brand2));color:#0f0f14;font-weight:800}
+.hscroll{display:flex;gap:16px;overflow-x:auto;padding:10px 6px 22px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.card{position:relative;flex:0 0 auto;width:320px;height:210px;border-radius:16px;overflow:hidden;background:#111;border:1px solid rgba(255,255,255,.08);scroll-snap-align:start;box-shadow:0 12px 34px rgba(0,0,0,.35)}
+.card img{width:100%;height:100%;object-fit:cover;display:block;filter:contrast(1.03) saturate(1.05)}
+.tag{position:absolute;left:10px;bottom:10px;padding:6px 10px;border-radius:10px;background:rgba(10,12,18,.65);color:#fff;font-weight:700;backdrop-filter:blur(3px)}
+
+/* FLOW */
+.flow{padding:64px 0}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:12px}
+.step{background:var(--glass);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:20px 18px;position:relative}
+.step:before{content:attr(data-step);position:absolute;top:-10px;left:-10px;background:linear-gradient(90deg,var(--brand1),var(--brand2));color:#0f0f14;font-weight:900;border-radius:12px;padding:6px 10px;box-shadow:0 8px 20px rgba(0,0,0,.35)}
+.step h3{margin:8px 0 8px}.step p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.6}
+
+/* CTA */
+.cta{padding:80px 0}
+.ctaBox{background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:28px 22px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+form.inline{display:grid;grid-template-columns:2fr 2fr 1fr;gap:10px;margin-top:16px}
+input,textarea,button{font:inherit}
+input,textarea{width:100%;padding:12px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:var(--ink)}
+button.primary{padding:12px 16px;border:none;border-radius:999px;font-weight:900;color:#0f0f14;background:linear-gradient(90deg,var(--brand1),var(--brand2));cursor:pointer}
+
+/* Reveal */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease, transform .6s ease}
+.reveal.show{opacity:1;transform:none}
+
+/* Responsive */
+@media (max-width:980px){.grid3{grid-template-columns:1fr 1fr}.steps{grid-template-columns:1fr;gap:14px}form.inline{grid-template-columns:1fr}}
+@media (max-width:640px){.hero h1{font-size:34px}.brandmark{width:90px;height:90px}.hscroll .card{width:260px;height:170px}}
+
+/* Footer */
+footer{padding:28px 0;color:var(--muted);text-align:center}
+.foot-social .socials{margin-top:10px;display:flex;gap:14px;justify-content:center}
+.foot-social .socials a{padding:8px 10px;border-radius:10px;background:var(--glass);border:1px solid rgba(255,255,255,.08)}
+
+
+==============================
+File: assets/js/app.js
+==============================
+// Utility: load partial HTML into a container by id
+async function loadSection(id, url){
+  const host = document.getElementById(id);
+  if(!host) return;
+  try{ const res = await fetch(url); host.innerHTML = await res.text(); }
+  catch(e){ host.innerHTML = `<div class="wrap">Failed to load ${url}</div>`; }
+}
+
+// Load sections on index.html
+(function(){
+  if(document.getElementById('hero')) loadSection('hero','partials/hero.html');
+  if(document.getElementById('do')) loadSection('do','partials/whatwedo.html');
+  if(document.getElementById('flow')) loadSection('flow','partials/flow.html');
+  if(document.getElementById('cta')) loadSection('cta','partials/cta.html');
+})();
+
+// Parallax for glow layers (only if present)
+function parallax(){
+  const layers = document.querySelectorAll('[data-parallax]');
+  const y = window.scrollY || window.pageYOffset;
+  layers.forEach(el=>{ const s = parseFloat(el.getAttribute('data-parallax')); el.style.transform = `translateY(${y * s}px)`; });
+}
+window.addEventListener('scroll', parallax, {passive:true});
+
+// Reveal on scroll
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target);} });
+},{threshold:.18});
+window.addEventListener('DOMContentLoaded', ()=>{
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  parallax();
+});
+
+// Horizontal gallery render (projects.html and index preview)
+async function renderGallery(targetId, limit){
+  const host = document.getElementById(targetId);
+  if(!host) return;
+  try{
+    const res = await fetch('data/projects.json');
+    const items = await res.json();
+    const slice = typeof limit === 'number' ? items.slice(0, limit) : items;
+    host.innerHTML = slice.map(x => `
+      <div class="card">
+        <img loading="lazy" src="${x.image}" alt="${x.title}">
+        <div class="tag">${x.title}</div>
+      </div>
+    `).join('');
+
+    // desktop drag-to-scroll
+    let isDown=false,startX,scrollLeft; const scroller=host;
+    scroller.addEventListener('mousedown',e=>{isDown=true;startX=e.pageX - scroller.offsetLeft;scrollLeft=scroller.scrollLeft});
+    ['mouseleave','mouseup'].forEach(ev=>scroller.addEventListener(ev,()=>{isDown=false}));
+    scroller.addEventListener('mousemove',e=>{ if(!isDown) return; e.preventDefault(); const x=e.pageX - scroller.offsetLeft; const walk=(x-startX)*1.2; scroller.scrollLeft = scrollLeft - walk; });
+  }catch(e){ host.innerHTML = '<div class="muted">Could not load gallery.</div>'; }
+}
+
+window.addEventListener('DOMContentLoaded', ()=>{
+  if(document.getElementById('gallery')) renderGallery('gallery');
+  if(document.getElementById('gallery-preview')) renderGallery('gallery-preview', 6);
+});
