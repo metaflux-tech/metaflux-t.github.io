@@ -52,43 +52,41 @@ async function renderGallery(targetId, limit){
   }
 }
 function attachMarqueeControls(scroller){
-  // Default direction: LEFT → RIGHT (reverse). 
-  // If you prefer the other way, change to: scroller.classList.remove('rev');
+  // Default direction = LEFTWARD (no 'rev' class). If you want rightward, do: scroller.classList.add('rev');
   scroller.classList.remove('rev');
 
-  // Keep animation running on mobile; pause only while touching/dragging
-  let down = false, startX = 0, lastX = 0;
+  let dragging = false, startX = 0, lastX = 0;
 
-  // Desktop: pause on hover (has no effect on mobile)
+  // Keep animation running on mobile; pause only while interacting
   scroller.addEventListener('mouseenter', () => scroller.classList.add('paused'));
   scroller.addEventListener('mouseleave', () => scroller.classList.remove('paused'));
 
-  // Unified pointer events (works for mouse + touch + pen)
+  // Unified pointer events (works on mouse/touch/pen)
   scroller.addEventListener('pointerdown', (e) => {
-    down = true;
+    dragging = true;
     startX = lastX = e.clientX;
     scroller.classList.add('paused');
     try { scroller.setPointerCapture(e.pointerId); } catch {}
   });
 
   scroller.addEventListener('pointermove', (e) => {
-    if (!down) return;
+    if (!dragging) return;
     lastX = e.clientX;
   });
 
   function endDrag(e){
-    if (!down) return;
-    const movedLeft = lastX < startX;       // finger/mouse moved left
-    // If user drags left, let content flow to the RIGHT afterwards
+    if (!dragging) return;
+    const movedLeft = lastX < startX;              // finger/mouse moved left
+    // If user swiped left, marquee should flow RIGHT afterward → add 'rev'
     scroller.classList.toggle('rev', movedLeft);
-    down = false;
+    dragging = false;
     scroller.classList.remove('paused');
     try { scroller.releasePointerCapture(e?.pointerId); } catch {}
   }
-
   scroller.addEventListener('pointerup', endDrag);
   scroller.addEventListener('pointercancel', endDrag);
 }
+
 
 
   // Touch: pause during swipe, flip direction by swipe direction
@@ -196,6 +194,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
   if (document.getElementById('gallery-preview')) renderGallery('gallery-preview', 12);
   if (document.getElementById('gallery')) renderGallery('gallery');
 });
+
 
 
 
