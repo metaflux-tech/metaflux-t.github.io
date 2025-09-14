@@ -138,6 +138,30 @@ footer a {
 }
 
 }
+/* Floating contact line (bottom-left) */
+.floating-contact {
+  position: fixed;
+  left: 16px;
+  bottom: 16px;
+  background: rgba(0,0,0,.4);
+  backdrop-filter: blur(6px);
+  color: var(--ink);
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-size: 14px;
+  z-index: 50;
+  box-shadow: 0 4px 12px rgba(0,0,0,.3);
+}
+.floating-contact a {
+  color: var(--brand2);
+  font-weight: 600;
+  text-decoration: none;
+}
+.floating-contact a:hover {
+  text-decoration: underline;
+}
+
+
 
 
 
