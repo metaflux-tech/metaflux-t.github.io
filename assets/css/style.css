@@ -315,6 +315,70 @@ footer a {
   .whygrid { grid-template-columns: 1fr; }
 }
 
+/* === Redesigned CTA Block === */
+.cta { padding: 100px 0; }
+
+.ctaBox {
+  text-align: center;
+  padding: 70px 40px 50px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(255,255,255,.05), rgba(255,255,255,.01));
+  border: 1px solid rgba(255,255,255,.1);
+  box-shadow: 0 20px 60px rgba(0,0,0,.35);
+  backdrop-filter: blur(8px);
+}
+
+.ctaTitle {
+  font-size: 40px;
+  font-weight: 800;
+  line-height: 1.15;
+  margin: 0 0 20px;
+}
+
+.ctaContact a {
+  color: var(--brand2);
+  font-weight: 600;
+  text-decoration: none;
+}
+.ctaTag {
+  margin-top: 10px;
+  font-size: 16px;
+  opacity: .8;
+}
+
+/* Social capsule bar */
+.socialbar {
+  margin-top: 36px;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  padding: 14px 22px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.08);
+  backdrop-filter: blur(6px);
+}
+
+.socialbar a {
+  color: rgba(255,255,255,.6);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  transition: color .2s ease, background .2s ease, transform .08s ease;
+}
+
+.socialbar a.ig:hover {
+  background: radial-gradient(circle at 30% 30%, #fdf497 0%, #fd5949 45%, #d6249f 70%, #285AEB 100%);
+  color: #fff;
+}
+.socialbar a:hover {
+  background: var(--glass);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
 
 
 
