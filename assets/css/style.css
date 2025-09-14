@@ -409,25 +409,31 @@ footer a {
   display: flex; gap: 14px; align-items: center;
 }
 .socials-row a{
-  color: #ffffff;                 /* <- force white icons */
   width: 42px; height: 42px;
-  display: inline-flex; align-items: center; justify-content: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 12px;
-  background: rgba(255,255,255,.06); /* subtle tile */
+  background: rgba(255,255,255,.06);
   border: 1px solid rgba(255,255,255,.10);
+
+  color: rgba(255,255,255,0.9);         /* <— visible white icons */
   transition: transform .08s ease, background .2s ease, color .2s ease;
 }
+
 .socials-row a:hover{
   transform: translateY(-2px);
   background: linear-gradient(90deg, var(--brand1), var(--brand2));
-  color: #0f0f14;                 /* icons invert on hover */
+  color: #0f0f14;                        /* <— dark icons on bright bg */
 }
+
 
 /* Responsive */
 @media (max-width: 980px){
   .ctaGrid{ grid-template-columns: 1fr; }
   .ctaSocials{ align-items: flex-start; }
 }
+
 
 
 
