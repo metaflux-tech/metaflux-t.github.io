@@ -203,7 +203,9 @@ footer a {
   .floating-contact{ display: none !important; }
 }
 
-
+/* Hide horizontal scrollbar but keep scroll/drag */
+.hscroll { scrollbar-width: none; }
+.hscroll::-webkit-scrollbar { display: none; }
 
 
 
