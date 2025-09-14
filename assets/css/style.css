@@ -168,13 +168,6 @@ footer a {
   z-index: 50;
   box-shadow: 0 4px 12px rgba(0,0,0,.3);
 }
-/* Hide floating contact on mobile */
-@media (max-width: 768px) {
-  .floating-contact {
-    display: none;
-  }
-}
-
 .floating-contact a {
   color: var(--brand2);
   font-weight: 600;
@@ -183,6 +176,13 @@ footer a {
 .floating-contact a:hover {
   text-decoration: underline;
 }
+/* Hide floating contact on mobile */
+@media (max-width: 768px) {
+  .floating-contact {
+    display: none;
+  }
+}
+
 
 
 
