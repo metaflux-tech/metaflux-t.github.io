@@ -435,6 +435,23 @@ footer a {
 }
 
 
+/* Pop hover like whycard */
+.tile {
+  transition: transform .2s ease, background .2s ease;
+}
+.tile:hover {
+  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+  transform: translateY(-4px);
+}
+/* Pop hover like whycard */
+.step {
+  transition: transform .2s ease, background .2s ease;
+}
+.step:hover {
+  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+  transform: translateY(-4px);
+}
+
 
 
 
