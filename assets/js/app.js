@@ -75,27 +75,6 @@ function attachMarqueeControls(scroller){
     if (!down) return;
     lastX = e.clientX;
   });
-/* === Infinite marquee gallery === */
-.hscroll.marquee {
-  overflow: hidden;
-  padding-bottom: 0;
-  /* Helps touch scrolling feel natural while still letting animation run */
-  touch-action: pan-y;
-}
-.hscroll.marquee .track {
-  display: flex;
-  flex-wrap: nowrap;           /* ensure one long row */
-  gap: 16px;
-  will-change: transform;
-  animation: marquee var(--marquee-duration, 28s) linear infinite;
-}
-.hscroll.marquee.paused .track { animation-play-state: paused; }
-.hscroll.marquee.rev    .track { animation-direction: reverse; }
-
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); } /* duplicates make this seamless */
-}
 
   function endDrag(e){
     if (!down) return;
@@ -217,6 +196,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
   if (document.getElementById('gallery-preview')) renderGallery('gallery-preview', 12);
   if (document.getElementById('gallery')) renderGallery('gallery');
 });
+
 
 
 
