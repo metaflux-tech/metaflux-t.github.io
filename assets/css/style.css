@@ -182,6 +182,27 @@ footer a {
     display: none;
   }
 }
+/* --- Fix hero stacking & tagline position --- */
+#hero.hero{
+  display: flex;
+  flex-direction: column !important;  /* force vertical stack */
+  align-items: center;
+  justify-content: center;
+}
+#hero .card,
+#hero .tagline { float: none !important; }   /* kill any stray floats */
+#hero .tagline.outside{
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin-top: 28px;
+}
+
+/* --- Hide floating contact on mobile --- */
+@media (max-width: 768px){
+  .floating-contact{ display: none !important; }
+}
+
 
 
 
