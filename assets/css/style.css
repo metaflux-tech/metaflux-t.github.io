@@ -111,7 +111,7 @@ img{max-width:100%;display:block}
 .flow{padding:64px 0}
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:12px}
 .step{background:var(--glass);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:20px 18px;position:relative}
-.step:before{content:attr(data-step);position:absolute;top:-10px;left:-10px;background:linear-gradient(90deg,var(--brand1),var(--brand2));color:#0f0f14;font-weight:900;border-radius:12px;padding:6px 10px;box-shadow:0 8px 20px rgba(0,0,0,.35)}
+
 .step h3{margin:8px 0 8px}.step p{margin:0;color:var(--muted);font-size:14.5px;line-height:1.6}
 
 /* CTA */
@@ -227,6 +227,7 @@ footer a {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); } /* duplicates make this seamless */
 }
+
 
 
 
