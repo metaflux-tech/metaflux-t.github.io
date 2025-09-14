@@ -37,10 +37,32 @@ img{max-width:100%;display:block}
   max-width:860px; margin: 0 16px;
 }
 .brandlogo{width:120px; height:auto; margin:0 auto 10px}
-.brandname{
-  margin:6px 0 6px; font-family:'Poppins',Inter,system-ui,Arial,Helvetica,sans-serif;
-  font-weight:800; line-height:1.02; font-size:44px; text-shadow:0 2px 8px rgba(0,0,0,.4);
+  .brandname {
+  margin: 6px 0 0;
+  font-family: 'Poppins', Inter, system-ui, Arial, Helvetica, sans-serif;
+  font-weight: 800;
+  line-height: 1.05;
+  text-shadow: 0 2px 8px rgba(0,0,0,.4);
 }
+.brandname span:first-child {
+  display: block;
+  font-size: 64px;         /* Metaflux - much bigger */
+}
+.brandname span:last-child {
+  display: block;
+  font-size: 34px;          /* Technologies - smaller */
+  font-weight: 600;
+  opacity: 0.85;
+}
+.tagline {
+  font-size: 18px;
+  color: #ffffff;
+  opacity: .9;
+  margin-top: 18px;          /* move it down slightly */
+  text-shadow: 0 2px 6px rgba(0,0,0,.35);
+}
+
+
 .brandname span{display:block}
 .tagline{font-size:18px; color:#ffffff; opacity:.9; margin:0 0 6px; text-shadow:0 2px 6px rgba(0,0,0,.35)}
 
@@ -116,6 +138,7 @@ footer a {
 }
 
 }
+
 
 
 
