@@ -207,6 +207,25 @@ footer a {
 .hscroll { scrollbar-width: none; }
 .hscroll::-webkit-scrollbar { display: none; }
 
+/* === Infinite marquee gallery === */
+.hscroll.marquee {
+  overflow: hidden;                 /* hide scrollbars */
+  padding-bottom: 0;                /* tidy baseline */
+}
+.hscroll.marquee .track {
+  display: flex;
+  gap: 16px;
+  will-change: transform;
+  animation: marquee var(--marquee-duration, 28s) linear infinite;
+}
+.hscroll.marquee.paused .track { animation-play-state: paused; }
+.hscroll.marquee.rev    .track { animation-direction: reverse; } /* rightward */
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); } /* we duplicate content, so 50% loops seamlessly */
+}
+
 
 
 
