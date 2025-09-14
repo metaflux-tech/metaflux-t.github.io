@@ -34,19 +34,69 @@ async function renderGallery(targetId, limit){
     const items = await res.json();
     const slice = typeof limit === 'number' ? items.slice(0, limit) : items;
 
-    host.innerHTML = slice.map(x => `
+    const cards = slice.map(x => `
       <div class="card hthumb">
         <img loading="lazy" src="${x.image}" alt="${x.title}">
         <div class="tag">${x.title}</div>
       </div>
     `).join('');
 
-    attachAutoScroller(host);
+    // Build marquee track: duplicate once for seamless loop
+    host.classList.add('marquee');                 // add marquee mode
+    host.innerHTML = `<div class="track">${cards}${cards}</div>`;
+
+    attachMarqueeControls(host);                   // enable pause/dir flip on input
   }catch(e){
     host.innerHTML = '<div class="wrap muted">Could not load gallery.</div>';
     console.warn('Gallery load failed:', e);
   }
 }
+function attachMarqueeControls(scroller){
+  // Default: move left (content flows left). To move right by default, add 'rev':
+  scroller.classList.add('rev');  // comment this line if you prefer leftward by default
+
+  let startX = 0, lastX = 0, dragging = false;
+
+  // Desktop: pause on hover, flip direction based on drag
+  scroller.addEventListener('mouseenter', ()=> scroller.classList.add('paused'));
+  scroller.addEventListener('mouseleave', ()=> scroller.classList.remove('paused'));
+
+  scroller.addEventListener('mousedown', e=>{
+    dragging = true; startX = lastX = e.clientX;
+    scroller.classList.add('paused');
+  });
+  window.addEventListener('mouseup', ()=>{
+    if (!dragging) return;
+    const movedLeft = lastX < startX;          // mouse moved left
+    // If user drags left, make content flow to the right (rev)
+    scroller.classList.toggle('rev', movedLeft);
+    dragging = false;
+    scroller.classList.remove('paused');
+  });
+  scroller.addEventListener('mousemove', e=>{
+    if (!dragging) return;
+    lastX = e.clientX;
+  });
+
+  // Touch: pause during swipe, flip direction by swipe direction
+  scroller.addEventListener('touchstart', e=>{
+    const t = e.touches[0];
+    startX = lastX = t.clientX;
+    scroller.classList.add('paused');
+  }, {passive:true});
+
+  scroller.addEventListener('touchmove', e=>{
+    const t = e.touches[0];
+    lastX = t.clientX;
+  }, {passive:true});
+
+  scroller.addEventListener('touchend', ()=>{
+    const movedLeft = lastX < startX;
+    scroller.classList.toggle('rev', movedLeft);
+    scroller.classList.remove('paused');
+  });
+}
+
 function attachAutoScroller(scroller){
   let dir = 1;               // 1 = forward/right, -1 = back/left
   let speed = 0.4;           // px per frame; tweak if you want
@@ -133,4 +183,5 @@ window.addEventListener('DOMContentLoaded', ()=>{
   if (document.getElementById('gallery-preview')) renderGallery('gallery-preview', 12);
   if (document.getElementById('gallery')) renderGallery('gallery');
 });
+
 
