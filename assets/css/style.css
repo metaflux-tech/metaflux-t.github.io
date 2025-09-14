@@ -209,22 +209,25 @@ footer a {
 
 /* === Infinite marquee gallery === */
 .hscroll.marquee {
-  overflow: hidden;                 /* hide scrollbars */
-  padding-bottom: 0;                /* tidy baseline */
+  overflow: hidden;
+  padding-bottom: 0;
+  touch-action: pan-y;            /* still allows vertical page scroll */
 }
 .hscroll.marquee .track {
   display: flex;
+  flex-wrap: nowrap;
   gap: 16px;
   will-change: transform;
   animation: marquee var(--marquee-duration, 28s) linear infinite;
 }
 .hscroll.marquee.paused .track { animation-play-state: paused; }
-.hscroll.marquee.rev    .track { animation-direction: reverse; } /* rightward */
+.hscroll.marquee.rev    .track { animation-direction: reverse; }
 
 @keyframes marquee {
   from { transform: translateX(0); }
-  to   { transform: translateX(-50%); } /* we duplicate content, so 50% loops seamlessly */
+  to   { transform: translateX(-50%); } /* duplicates make this seamless */
 }
+
 
 
 
