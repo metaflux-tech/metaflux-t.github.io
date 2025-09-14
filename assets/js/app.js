@@ -52,31 +52,65 @@ async function renderGallery(targetId, limit){
   }
 }
 function attachMarqueeControls(scroller){
-  // Default: move left (content flows left). To move right by default, add 'rev':
-  scroller.classList.add('rev');  // comment this line if you prefer leftward by default
+  // Default direction: LEFT → RIGHT (reverse). 
+  // If you prefer the other way, change to: scroller.classList.remove('rev');
+  scroller.classList.remove('rev');
 
-  let startX = 0, lastX = 0, dragging = false;
+  // Keep animation running on mobile; pause only while touching/dragging
+  let down = false, startX = 0, lastX = 0;
 
-  // Desktop: pause on hover, flip direction based on drag
-  scroller.addEventListener('mouseenter', ()=> scroller.classList.add('paused'));
-  scroller.addEventListener('mouseleave', ()=> scroller.classList.remove('paused'));
+  // Desktop: pause on hover (has no effect on mobile)
+  scroller.addEventListener('mouseenter', () => scroller.classList.add('paused'));
+  scroller.addEventListener('mouseleave', () => scroller.classList.remove('paused'));
 
-  scroller.addEventListener('mousedown', e=>{
-    dragging = true; startX = lastX = e.clientX;
+  // Unified pointer events (works for mouse + touch + pen)
+  scroller.addEventListener('pointerdown', (e) => {
+    down = true;
+    startX = lastX = e.clientX;
     scroller.classList.add('paused');
+    try { scroller.setPointerCapture(e.pointerId); } catch {}
   });
-  window.addEventListener('mouseup', ()=>{
-    if (!dragging) return;
-    const movedLeft = lastX < startX;          // mouse moved left
-    // If user drags left, make content flow to the right (rev)
-    scroller.classList.toggle('rev', movedLeft);
-    dragging = false;
-    scroller.classList.remove('paused');
-  });
-  scroller.addEventListener('mousemove', e=>{
-    if (!dragging) return;
+
+  scroller.addEventListener('pointermove', (e) => {
+    if (!down) return;
     lastX = e.clientX;
   });
+/* === Infinite marquee gallery === */
+.hscroll.marquee {
+  overflow: hidden;
+  padding-bottom: 0;
+  /* Helps touch scrolling feel natural while still letting animation run */
+  touch-action: pan-y;
+}
+.hscroll.marquee .track {
+  display: flex;
+  flex-wrap: nowrap;           /* ensure one long row */
+  gap: 16px;
+  will-change: transform;
+  animation: marquee var(--marquee-duration, 28s) linear infinite;
+}
+.hscroll.marquee.paused .track { animation-play-state: paused; }
+.hscroll.marquee.rev    .track { animation-direction: reverse; }
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); } /* duplicates make this seamless */
+}
+
+  function endDrag(e){
+    if (!down) return;
+    const movedLeft = lastX < startX;       // finger/mouse moved left
+    // If user drags left, let content flow to the RIGHT afterwards
+    scroller.classList.toggle('rev', movedLeft);
+    down = false;
+    scroller.classList.remove('paused');
+    try { scroller.releasePointerCapture(e?.pointerId); } catch {}
+  }
+
+  scroller.addEventListener('pointerup', endDrag);
+  scroller.addEventListener('pointercancel', endDrag);
+}
+
 
   // Touch: pause during swipe, flip direction by swipe direction
   scroller.addEventListener('touchstart', e=>{
@@ -183,5 +217,6 @@ window.addEventListener('DOMContentLoaded', ()=>{
   if (document.getElementById('gallery-preview')) renderGallery('gallery-preview', 12);
   if (document.getElementById('gallery')) renderGallery('gallery');
 });
+
 
 
