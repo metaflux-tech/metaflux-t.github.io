@@ -58,9 +58,14 @@ img{max-width:100%;display:block}
   font-size: 18px;
   color: #ffffff;
   opacity: .9;
-  margin-top: 18px;          /* move it down slightly */
   text-shadow: 0 2px 6px rgba(0,0,0,.35);
 }
+.tagline.outside {
+  margin-top: 28px;      /* more spacing below the card */
+  text-align: center;
+}
+
+
 
 
 .brandname span{display:block}
@@ -160,6 +165,7 @@ footer a {
 .floating-contact a:hover {
   text-decoration: underline;
 }
+
 
 
 
