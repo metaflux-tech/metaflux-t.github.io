@@ -15,6 +15,10 @@
     "title": "Interactive AI Photobooth",
     "image": "img/projects/interactive-booth.png"
   },
+   {
+    "title": "Launch Activations",
+    "image": "img/projects/launch.jpg"
+  },
   {
     "title": "3D Projection Room",
     "image": "img/projects/projection-room.jpg"
@@ -23,7 +27,20 @@
     "title": "Brand Activations",
     "image": "img/projects/sprite.jpg"
   }
+   {
+    "title": "Kids Activations",
+    "image": "img/projects/sprite.jpg"
+  },
+   {
+    "title": "Virtual Reality",
+    "image": "img/projects/VR.jpg"
+  },
+   {
+    "title": "Interactive Technologies",
+    "image": "img/projects/interactive-.jpg"
+  }
 ]
+
 
 
 
