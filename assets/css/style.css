@@ -476,7 +476,7 @@ footer a {
 /* Bigger project cards with consistent aspect ratio */
 .card.hthumb{
   flex: 0 0 auto;                  /* don't let flex shrink the cards */
-  width: clamp(300px, 30vw, 420px);/* min 260px, grow up to 28% of vw, max 380px */
+  width: clamp(300px, 30vw, 300px);/* min 260px, grow up to 28% of vw, max 380px */
   aspect-ratio: 16 / 12;           /* keeps nice landscape shape */
   border: none;
   padding: 0;
@@ -505,6 +505,7 @@ footer a {
     width: 420px;
   }
 }
+
 
 
 
