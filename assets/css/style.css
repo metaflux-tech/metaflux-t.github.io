@@ -473,6 +473,39 @@ footer a {
 
 
 
+/* Bigger project cards with consistent aspect ratio */
+.card.hthumb{
+  flex: 0 0 auto;                  /* don't let flex shrink the cards */
+  width: clamp(260px, 28vw, 380px);/* min 260px, grow up to 28% of vw, max 380px */
+  aspect-ratio: 16 / 10;           /* keeps nice landscape shape */
+  border: none;
+  padding: 0;
+  background: none;
+  overflow: hidden;
+  border-radius: 16px;             /* keep your rounded corners */
+}
+
+.card.hthumb img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;               /* fill the whole card */
+  display: block;
+}
+
+/* Tweak for small phones: slightly smaller so it fits comfortably */
+@media (max-width: 420px){
+  .card.hthumb{
+    width: 86vw;                   /* ~1 card per view on tiny screens */
+  }
+}
+
+/* Optional: on large desktops show bigger cards */
+@media (min-width: 1400px){
+  .card.hthumb{
+    width: 420px;
+  }
+}
+
 
 
 
