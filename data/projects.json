@@ -1,27 +1,28 @@
 [
   {
-    "title": "Corporate LED Stage",
-    "image": "img/projects/corporate-led-stage.jpg"
+    "title": "Augmented Reality",
+    "image": "img/projects/AR.jpg"
   },
   {
-    "title": "Outdoor Sports Screen",
-    "image": "img/projects/outdoor-screen.jpg"
+    "title": "Anamorphic Content Creation",
+    "image": "img/projects/anamorphic.jpg"
   },
   {
-    "title": "Projection Mapping",
-    "image": "img/projects/projection-mapping.jpg"
+    "title": "360 Immersive Projection Room",
+    "image": "img/projects/360-projection.jpg"
   },
   {
-    "title": "Interactive Photobooth",
+    "title": "Interactive AI Photobooth",
     "image": "img/projects/interactive-booth.png"
   },
   {
-    "title": "Rental LED Panels",
-    "image": "img/projects/rental-led-panels.jpg"
+    "title": "3D Projection Room",
+    "image": "img/projects/projection-room.jpg"
   },
   {
-    "title": "Truss & Rigging",
-    "image": "img/projects/truss-rigging.jpg"
+    "title": "Brand Activations",
+    "image": "img/projects/sprite.jpg"
   }
 ]
+
 
