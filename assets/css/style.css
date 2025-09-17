@@ -453,6 +453,24 @@ footer a {
 }
 
 
+/* Make project images fully cover the card area */
+.card.hthumb {
+  padding: 0;
+  border: none;
+  background: none;
+  overflow: hidden;
+
+  width: 260px;         /* optional: give a fixed width if cards look too small */
+  height: 180px;        /* adjust to your preferred height */
+}
+
+.card.hthumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;    /* makes image fill without gaps */
+}
+
 
 
 
