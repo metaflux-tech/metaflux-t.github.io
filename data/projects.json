@@ -1,11 +1,11 @@
 [
   {
     "title": "Augmented Reality",
-    "image": "img/projects/AR.jpg"
+    "image": "img/projects/AR.png"
   },
   {
     "title": "Anamorphic Content Creation",
-    "image": "img/projects/anamorphic.jpg"
+    "image": "img/projects/anamorphic.png"
   },
   {
     "title": "360 Immersive Projection Room",
@@ -24,5 +24,6 @@
     "image": "img/projects/sprite.jpg"
   }
 ]
+
 
 
