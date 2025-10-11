@@ -39,6 +39,99 @@
 </script>
 
 </head>
+
+  <!-- Mobile-only Floating Contact Dock -->
+<div class="mf-dock" role="navigation" aria-label="Quick contact menu">
+  <!-- Call -->
+  <a class="mf-btn mf-call" href="tel:+971528402908" aria-label="Call Metaflux Technologies">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+      <path d="M6.6 10.8a15.1 15.1 0 006.6 6.6l2.2-2.2a1 1 0 011.02-.24 11.6 11.6 0 003.64.58 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.48a1 1 0 011 1 11.6 11.6 0 00.58 3.64 1 1 0 01-.24 1.02L6.6 10.8z" fill="currentColor"/>
+    </svg>
+    <span class="mf-tip">Call</span>
+  </a>
+
+  <!-- WhatsApp -->
+  <a class="mf-btn mf-wa" href="https://wa.me/971500000000" target="_blank" rel="noopener" aria-label="WhatsApp Metaflux Technologies">
+    <svg viewBox="0 0 32 32" width="20" height="20" aria-hidden="true">
+      <path d="M19.1 17.4c-.3-.1-1-.5-1.2-.6-.2-.1-.4-.1-.6.1-.2.3-.7.8-.8.9-.1.1-.3.1-.6 0-.3-.1-1.1-.4-2.1-1.3-.8-.7-1.3-1.6-1.5-1.9-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2.1-.4 0-.6C12.2 12 11.6 10.6 11.3 10c-.2-.5-.5-.5-.7-.5h-.6c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 3 4.4 4.2 2.6 1.2 2.6.8 3.1.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.2-.3-.2-.7-.3zM16 3C9.9 3 5 7.9 5 14c0 2.3.7 4.4 1.9 6.2L6 29l8-1.9c1.7 1 3.6 1.5 5.6 1.5 6.1 0 11-4.9 11-11S22.1 3 16 3z" fill="currentColor"/>
+    </svg>
+    <span class="mf-tip">WhatsApp</span>
+  </a>
+
+  <!-- Instagram -->
+  <a class="mf-btn mf-ig" href="https://instagram.com/metaflux.ae" target="_blank" rel="noopener" aria-label="Instagram Metaflux">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+      <path d="M12 2.2c3 0 3.4 0 4.6.1 1.1.1 1.7.2 2.1.4.5.2.8.4 1.2.8.4.4.6.7.8 1.2.2.4.3 1 .4 2.1.1 1.2.1 1.6.1 4.6s0 3.4-.1 4.6c-.1 1.1-.2 1.7-.4 2.1-.2.5-.4.8-.8 1.2-.4.4-.7.6-1.2.8-.4.2-1 .3-2.1.4-1.2.1-1.6.1-4.6.1s-3.4 0-4.6-.1c-1.1-.1-1.7-.2-2.1-.4-.5-.2-.8-.4-1.2-.8-.4-.4-.6-.7-.8-1.2-.2-.4-.3-1-.4-2.1C2.2 15.4 2.2 15 2.2 12s0-3.4.1-4.6c.1-1.1.2-1.7.4-2.1.2-.5.4-.8.8-1.2s.7-.6 1.2-.8c.4-.2 1-.3 2.1-.4C8.6 2.2 9 2.2 12 2.2zm0 2.6a5.2 5.2 0 110 10.4 5.2 5.2 0 010-10.4zm0 2a3.2 3.2 0 100 6.4 3.2 3.2 0 000-6.4zm5.7-.9a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" fill="currentColor"/>
+    </svg>
+    <span class="mf-tip">@metaflux.ae</span>
+  </a>
+
+  <!-- LinkedIn -->
+  <a class="mf-btn mf-li" href="https://www.linkedin.com/company/metaflux-technologies" target="_blank" rel="noopener" aria-label="LinkedIn Metaflux Technologies">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+      <path d="M4.98 3.5a2.5 2.5 0 112.5 2.5 2.5 2.5 0 01-2.5-2.5zM5 8h5v13H5zm7 0h4.8v1.9h.1c.7-1.2 2.3-2.4 4.7-2.4 5 0 5.9 3.3 5.9 7.6V21H22v-5.8c0-1.4 0-3.1-1.9-3.1s-2.2 1.5-2.2 3V21h-5V8z" fill="currentColor"/>
+    </svg>
+    <span class="mf-tip">LinkedIn</span>
+  </a>
+</div>
+
+<style>
+  /* Hidden by default (desktop/tablet) */
+  .mf-dock{ display:none }
+
+  /* Show only on phones: coarse pointer + no hover + max width */
+  @media (hover: none) and (pointer: coarse) and (max-width: 820px){
+    :root{
+      --mf-gap: 12px;
+      --mf-size: 54px;
+      --mf-shadow: 0 10px 28px rgba(0,0,0,.22);
+      --mf-radius: 16px;
+      --mf-z: 9999;
+      --mf-bottom: calc(18px + env(safe-area-inset-bottom, 0));
+      --mf-right: 16px;
+      --mf-bg: #111827;
+      --mf-tip: #fff;
+    }
+    .mf-dock{
+      position: fixed;
+      right: var(--mf-right);
+      bottom: var(--mf-bottom);
+      display: flex;               /* now visible */
+      flex-direction: column;
+      gap: var(--mf-gap);
+      z-index: var(--mf-z);
+    }
+    .mf-btn{
+      width: var(--mf-size); height: var(--mf-size);
+      border-radius: var(--mf-radius);
+      display: inline-flex; align-items: center; justify-content: center;
+      text-decoration: none; color:#fff; box-shadow: var(--mf-shadow);
+      transition: transform .15s ease, filter .15s ease, opacity .2s ease;
+      position: relative;
+    }
+    .mf-btn:active{ transform: scale(.98) }
+    .mf-btn .mf-tip{
+      position: absolute; right: calc(100% + 10px); top: 50%; transform: translateY(-50%);
+      background: var(--mf-bg); color: var(--mf-tip); font: 600 12px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      padding: 8px 10px; border-radius: 10px; white-space: nowrap; opacity: 0; pointer-events: none;
+      box-shadow: 0 6px 18px rgba(0,0,0,.25); transition: opacity .15s ease, transform .15s ease;
+    }
+    .mf-btn:focus .mf-tip{ opacity:1; transform: translate(-2px,-50%) }
+
+    /* Brand colors */
+    .mf-call{ background:#10b981 }   /* emerald */
+    .mf-wa{   background:#25D366 }   /* WhatsApp */
+    .mf-ig{   background:#C13584 }   /* Instagram */
+    .mf-li{   background:#0A66C2 }   /* LinkedIn */
+
+    /* Super small phones: hide tooltips */
+    @media (max-width: 380px){
+      .mf-btn .mf-tip{ display:none }
+    }
+  }
+</style>
+
+  
 <body>
  
   <!-- HERO: inline content (no partial, no gradient layers) -->
@@ -120,6 +213,7 @@
   <script src="assets/js/app.js?v=6" defer></script>
 </body>
 </html>
+
 
 
 
