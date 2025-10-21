@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Optional but recommended if you have a sitemap:
+Sitemap: https://www.metaflux.ae/sitemap.xml
